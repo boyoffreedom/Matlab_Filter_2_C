@@ -43,7 +43,7 @@ int main()
         state1.x[i] = 0;
         state1.y[i] = 0;
     }
-    //iir滤波函数
+    //调用iir滤波函数
     for(i = 0; i < LENGTH;i++)
     {
         filter_out[i] = iir_filter(&state1,IIR_A,IIR_B,in_data[i]);
@@ -68,17 +68,13 @@ float iir_filter(struct IIR_Filter_State* filter_state, float* a, float* b, floa
 	int i;
 	float tmp = 0;
 
-     //x值更新
+     //xy值更新
 	for(i = FILTER_ORDER; i > 0 ;i--)
     {
         filter_state->x[i] = filter_state->x[i-1];
-    }
-	filter_state->x[0] = x_0;
-	//更新y
-	for(i = FILTER_ORDER; i > 0 ;i--)
-    {
         filter_state->y[i] = filter_state->y[i-1];
     }
+	filter_state->x[0] = x_0;
 
 	//计算输出滤波数值
 	for(i = 0; i <= FILTER_ORDER;i++)
